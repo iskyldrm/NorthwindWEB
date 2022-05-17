@@ -1,7 +1,11 @@
+using Northwind.DAL.Abstract;
+using Northwind.DAL.Concrete;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IShippersDal, ShipperDal>();
 
 var app = builder.Build();
 

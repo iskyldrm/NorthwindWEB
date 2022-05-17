@@ -1,0 +1,23 @@
+﻿@using Northwind.Entities.Models
+@model IList<Shipper>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>CompanyName</td>
+            <td>Phone</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ShipperId</td>
+                <td>@item.CompanyName</td>
+                <td>@item.Phone</td>
+            </tr>
+        }
+    </tbody>
+
+</table>
