@@ -1,0 +1,34 @@
+﻿
+@using Northwind.Entities.Models
+@model IList<Customer>
+
+<div class="col-sm-12">
+
+    <table id="example2" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example2_info">
+            <thead>
+            <tr>
+                    <td>Customer Id</td>
+                    <td>Company Name</td>
+                    <td>Contact Name</td>
+                    <td>Country</td>
+                    <td>City</td>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                    <td>@item.CustomerId</td>
+                    <td>@item.CompanyName</td>
+                    <td>@item.ContactName</td>
+                    <td>@item.Country</td>
+                    <td>@item.City</td>
+                    </tr>
+                }
+
+            </tbody>
+
+
+
+     </table>
+ </div>
