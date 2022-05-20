@@ -46,9 +46,14 @@ namespace Northwind.WebMvc.Controllers
                 {
                     return RedirectToAction("Index", "Home", new { area = "Admin" });
                 }
-                ModelState.AddModelError("", "Mail adresi doğrulanmalı");
+                else
+                {
+                    ModelState.AddModelError("", "Mail adresi doğrulanmalı");
+                    return View();
+                }
+
             }
-            return View();
+
         }
     }
 }
