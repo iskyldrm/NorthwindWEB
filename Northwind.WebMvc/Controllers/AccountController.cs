@@ -19,7 +19,8 @@ namespace Northwind.WebMvc.Controllers
 
         public IActionResult Login()
         {
-            return View();
+            LoginModel model = new LoginModel();
+            return View(model);
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel login)
@@ -117,6 +118,33 @@ namespace Northwind.WebMvc.Controllers
                     return View(register);
                 }
             }
+        }
+
+        [Route("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail(string uid, string code)
+        {
+            ConfirmEmail model = new ConfirmEmail();
+            if (!string.IsNullOrEmpty(uid) && !string.IsNullOrEmpty(code))
+            {
+                var user = await userManager.FindByIdAsync(uid);
+                code = code.Replace(' ', '+');
+                model.Email = user.Email;
+
+                var result = await userManager.ConfirmEmailAsync(user, code);
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    var error = result.Errors.FirstOrDefault();
+                    model.ErrorDescription = error.Description;
+                    model.HasError = true;
+                    ModelState.AddModelError("", error.Description);
+                    return View(model);
+                }
+            }
+            return View();
         }
     }
 }

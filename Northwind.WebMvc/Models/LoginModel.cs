@@ -12,5 +12,6 @@ namespace Northwind.WebMvc.Models
         public string Password { get; set; }
         public bool RemeberMe { get; set; } = false;
         public string Token { get; set; }
+
     }
 }
