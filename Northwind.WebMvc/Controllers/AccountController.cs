@@ -55,5 +55,11 @@ namespace Northwind.WebMvc.Controllers
             }
 
         }
+
+        public IActionResult Register()
+        {
+            RegisterModel registerModel = new RegisterModel();
+            return View(registerModel);
+        }
     }
 }
