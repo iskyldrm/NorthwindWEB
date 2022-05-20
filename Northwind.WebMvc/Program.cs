@@ -1,6 +1,8 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Northwind.DAL.Abstract;
 using Northwind.DAL.Concrete;
+using Northwind.WebMvc.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,14 +11,38 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IShippersDal, ShipperDal>();
 builder.Services.AddScoped<ICustomerDal, CustomerDal>();
 
+//IdentityServerAyARLARI
+#region IdenetityServerAyarlarý
+string constr = @"server=(localdb)\mssqllocaldb;database=NorthwindIdentity;Trusted_Connection=True";
+builder.Services.AddDbContext<MyIdentityDbContext>(options => options.UseSqlServer(constr));
+
+
+builder.Services.AddIdentity<MyUser, IdentityRole>()
+    .AddEntityFrameworkStores<MyIdentityDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Lockout.MaxFailedAccessAttempts = 5;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+
+});
+#endregion
+
+
+
 //Cookiebase authentication
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(x =>
-    {
-        x.LoginPath = "/User/Giris";
-        x.LogoutPath = "/User/Cikis";
-        x.AccessDeniedPath = "/User/Yasak";
-    });
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//    .AddCookie(x =>
+//    {
+//        x.LoginPath = "/User/Giris";
+//        x.LogoutPath = "/User/Cikis";
+//        x.AccessDeniedPath = "/User/Yasak";
+//    });
 
 var app = builder.Build();
 
