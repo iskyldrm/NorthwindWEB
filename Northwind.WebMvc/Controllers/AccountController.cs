@@ -15,6 +15,8 @@ namespace Northwind.WebMvc.Controllers
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            var validator = userManager.UserValidators;
+            validator.Clear();
         }
 
         public IActionResult Login()
@@ -75,6 +77,7 @@ namespace Northwind.WebMvc.Controllers
                 MyUser user = new MyUser();
                 user.Email = register.Email;
                 user.TCKimlik = register.TcKimlik;
+                user.UserName = register.UserName;
 
                 var result = await userManager.CreateAsync(user, register.Password);
                 if (result.Succeeded)

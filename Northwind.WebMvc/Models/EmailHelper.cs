@@ -18,9 +18,10 @@ namespace Northwind.WebMvc.Models
             #region Smtp Ayarlari
             SmtpClient smtpClient = new SmtpClient();
             smtpClient.Credentials = new System.Net.NetworkCredential("cinaliveli5@gmail.com", "AliVeli4950");
-            smtpClient.Port = 587;
+            smtpClient.Port = 52109;
             smtpClient.EnableSsl = true;
-            smtpClient.Host = "smpt.gmail.com";
+            smtpClient.Host = "smtp.gmail.com";
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             #endregion
 
             try
